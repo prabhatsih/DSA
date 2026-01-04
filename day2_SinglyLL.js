@@ -51,6 +51,30 @@ class SinglyLinkedList {
         this.head = newNode
     }
 
+    insertAtPosition(data, position) {
+        if(position === 0) {
+            this.insertAtStart(data)
+            return;
+        }
+
+        const newNode = new Node(data);
+        let current = this.head
+        let count = 0
+
+        while(current !== null && count < position - 1) {
+            current = current.next;
+            count++
+        }
+
+        if(current === null) {
+            console.log("Position out of range");
+            return;
+        }
+
+        newNode.next = current.next;
+        current.next = newNode;
+    }
+
 
 }
 
@@ -59,5 +83,6 @@ const list = new SinglyLinkedList();
 list.insertAtEnd(10);
 list.insertAtEnd(20);
 list.insertAtStart(5);
+list.insertAtPosition(15,2);
 
 list.printList();
