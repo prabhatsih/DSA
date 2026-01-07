@@ -51,8 +51,9 @@ class SinglyLinkedList {
         this.head = newNode
     }
 
+    //Inserting Data at the decided position
     insertAtPosition(data, position) {
-        if(position === 0) {
+        if (position === 0) {
             this.insertAtStart(data)
             return;
         }
@@ -61,18 +62,84 @@ class SinglyLinkedList {
         let current = this.head
         let count = 0
 
-        while(current !== null && count < position - 1) {
+        while (current !== null && count < position - 1) {
             current = current.next;
             count++
         }
 
-        if(current === null) {
+        if (current === null) {
             console.log("Position out of range");
             return;
         }
 
         newNode.next = current.next;
         current.next = newNode;
+    }
+
+    //Delete a node/element by using data value 
+    deleteByValue(value) {
+        if (this.head === null)
+
+            //Delete head if value match
+            if (this.head.data === value) {
+                this.head = this.head.next;
+                return;
+            }
+
+        let current = this.head;
+
+        while (current.next !== null && current.next.data !== value) {
+            current = current.next;
+        }
+
+        if (current.next === null) {
+            console.log("Value not found")
+            return;
+        }
+
+        current.next = current.next.next;
+
+    }
+
+    //Search en element
+    search(value) {
+        let current = this.head
+
+        while (current !== null) {
+            if (current.data === value)
+                return true
+            current = current.next
+        }
+
+        return false;
+    }
+
+    //reverse the linked list
+    reverse() {
+        let prev = null
+        let current = this.head
+
+        while (current !== null) {
+            let next = current.next
+            current.next = prev
+            prev = current
+            current = next
+        }
+
+        this.head = prev
+    }
+
+    //Length of Linked List
+    length() {
+        let count = 0
+        let current = this.head
+
+        while (current !== null) {
+            count++
+            current = current.next
+        }
+
+        return count
     }
 
 
@@ -83,6 +150,12 @@ const list = new SinglyLinkedList();
 list.insertAtEnd(10);
 list.insertAtEnd(20);
 list.insertAtStart(5);
-list.insertAtPosition(15,2);
+list.insertAtPosition(15, 2);
+list.deleteByValue(10);
 
 list.printList();
+
+console.log(list.search(20))
+
+list.reverse()
+list.printList()
